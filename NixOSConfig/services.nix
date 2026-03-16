@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   services = {
     # Enable CUPS to print documents.
@@ -28,6 +28,8 @@
         bigclock = "en";
         vi_mode = true;
         vi_default_mode = "insert";
+        brightness_down_cmd = "${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
+        brightness_up_cmd = "${pkgs.brightnessctl}/bin/brightnessctl set 5%+";
       };
     };
     # Enable the OpenSSH daemon.

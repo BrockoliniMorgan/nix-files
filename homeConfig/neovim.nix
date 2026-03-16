@@ -5,6 +5,20 @@
   vimAlias = true;
   syntaxHighlighting = true;
   bell = "visual"; # No sounds
+  telescope = {
+    enable = true;
+    extensions = [
+      {
+        name = "fzf";
+        packages = [ pkgs.vimPlugins.telescope-fzf-native-nvim ];
+        setup = {
+          fzf = {
+            fuzzy = true;
+          };
+        };
+      }
+    ];
+  };
   git = {
     enable = true;
     git-conflict.enable = true;

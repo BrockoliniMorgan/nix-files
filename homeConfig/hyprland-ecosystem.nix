@@ -156,6 +156,9 @@
           };
         };
       };
+      extraConfig = ''
+        debug:disable_logs = false
+      '';
     };
   programs.hyprlock.enable = true;
   services.hypridle = {

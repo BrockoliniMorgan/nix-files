@@ -58,8 +58,8 @@
           }
         ))
       ];
+      # All of my (current) systems
       systems = [
-        # All of my (current) systems
         rec {
           hostName = "${userName}-vivobook";
           system = "x86_64-linux";
