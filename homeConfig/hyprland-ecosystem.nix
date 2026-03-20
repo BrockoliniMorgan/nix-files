@@ -33,7 +33,7 @@
       settings = {
         "$mod" = "SUPER";
         bind = [
-          "$mod, Return, exec, kitty"
+          "$mod, Return, exec, ${pkgs.kitty}/bin/kitty"
           "$mod, S, exec, ${pkgs.rofi}/bin/rofi -show drun"
           "$mod, Q, killactive"
           "$mod&SHIFT, Q, forcekillactive"
