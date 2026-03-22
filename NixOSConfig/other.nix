@@ -52,7 +52,10 @@
   };
 
   security.rtkit.enable = true;
-  hardware.bluetooth.enable = true;
+  hardware = {
+    bluetooth.enable = true;
+    graphics.enable = true;
+  };
 
   users.users.${userName} = {
     isNormalUser = true;
