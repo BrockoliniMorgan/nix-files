@@ -7,6 +7,7 @@
     ./home-settings.nix
     ./programs.nix
     ./screenshot.nix
+    ./qutebrowser.nix
     inputs.nvf.homeManagerModules.default
     {
       programs.nvf = {

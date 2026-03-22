@@ -39,6 +39,7 @@
           "$mod&SHIFT, Q, forcekillactive"
           "$mod, V, exec, vivaldi"
           "$mod, D, exec, discord"
+          "$mod, U, exec, qutebrowser"
           "$mod, F, togglefloating, active"
           "$mod&SHIFT, R, exec, hyprctl reload"
           "$mod, F12, fullscreen"
