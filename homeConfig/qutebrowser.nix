@@ -15,9 +15,10 @@
       };
       content = {
         cookies = {
-          accept = "never";
+          accept = "no-3rdparty";
           store = false;
         };
+        javascript.enabled = true;
       };
       fonts = {
         default_family = "Iosevka Nerd Font";
