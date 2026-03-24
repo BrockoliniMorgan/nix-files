@@ -15,7 +15,7 @@
       };
       content = {
         cookies = {
-          accept = "no-3rdparty";
+          accept = "no-unknown-3rdparty";
           store = false;
         };
         javascript.enabled = true;
