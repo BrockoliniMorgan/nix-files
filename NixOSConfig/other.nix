@@ -33,7 +33,7 @@
   };
 
   # Set your time zone.
-  time.timeZone = "Australia/Brisbane";
+  time.timeZone = "Australia/Adelaide";
 
   # Select internationalisation properties.
   i18n = {

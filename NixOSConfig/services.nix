@@ -34,5 +34,10 @@
     };
     # Enable the OpenSSH daemon.
     # openssh.enable = true;
+
+    udev = {
+      enable = true;
+      packages = [ pkgs.platformio-core.udev ];
+    };
   };
 }
