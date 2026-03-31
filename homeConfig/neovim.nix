@@ -19,11 +19,7 @@
       }
     ];
   };
-  git = {
-    enable = true;
-    git-conflict.enable = true;
-    vim-fugitive.enable = true;
-  };
+  git.enable = true;
   options = {
     wrap = false;
     autoindent = true;
@@ -73,23 +69,10 @@
   utility = {
     direnv.enable = true; # Direnv when entering directories
     icon-picker.enable = true; # Pretty icons
-    images.image-nvim = {
-      # Kitty can do images in the terminal!!
-      enable = true;
-      setupOpts = {
-        backend = "kitty";
-        editorOnlyRenderWhenFocused = true;
-        integrations.markdown = {
-          clearInInsertMode = true;
-          downloadRemoteImages = true;
-        };
-      };
-    };
     sleuth.enable = true; # Figures out the proper indenting for tab automatically
-    mkdir.enable = true; # Make all directories when they don't exist down to the file/directory selected
     nix-develop.enable = true;
     smart-splits = {
-      # Moving around in windows using Alt+hjkl and resizing using Alt+r hjkl
+      # Moving around in windows using leader+hjkl and resizing using leader+r hjkl
       enable = true;
       keymaps = {
         move_cursor_down = "<leader>j";
@@ -105,7 +88,6 @@
     undotree.enable = true; # TODO: configure this with bindings. Looks cool, I have no idea how to use it
   };
   visuals = {
-    cinnamon-nvim.enable = true; # TODO: configure this? Doesn't seem to be doing anything
     highlight-undo.enable = true; # Highlight changes when in normal mode
     indent-blankline.enable = true; # Indentation visual. TODO: Make these softer. Right now, they're kinda bright
     nvim-cursorline = {
@@ -119,25 +101,16 @@
   };
   languages = {
     enableDAP = true; # Automatically have Debug Adapters on
-    # enableExtraDiagnostics = true; # Who can't use more diagnostics. TODO: configure this. not sure what it does
     enableFormat = true; # Format every language enabled below
     enableTreesitter = true; # Automatically enable treesitter parser for every language enable below
-    bash = {
-      enable = true;
-      lsp.enable = true;
-    };
+    bash.enable = true;
+    css.enable = true;
+    json.enable = true;
+    svelte.enable = true;
+    yaml.enable = true;
     clang = {
       enable = true;
       cHeader = true;
-      lsp.enable = true;
-    };
-    css = {
-      enable = true;
-      lsp.enable = true;
-    };
-    json = {
-      enable = true;
-      lsp.enable = true;
     };
     markdown = {
       enable = true;
@@ -145,42 +118,18 @@
     };
     nix = {
       enable = true;
-      format = {
-        enable = true;
-        type = [ "nixfmt" ];
-      };
-      lsp = {
-        enable = true;
-        servers = [ "nixd" ];
-      };
+      format.type = [ "nixfmt" ];
+      lsp.servers = [ "nixd" ];
     };
     python = {
       enable = true;
-      format = {
-        enable = true;
-        type = [ "ruff" ];
-      };
-      lsp = {
-        servers = [ "python-lsp-server" ];
-        enable = true;
-      };
-      treesitter = {
-        enable = true;
-        package = pkgs.vimPlugins.nvim-treesitter-parsers.python; # For some reason the default python treesitter package is empty?
-      };
-    };
-    svelte = {
-      enable = true;
-      lsp.enable = true;
+      format.type = [ "ruff" ];
+      lsp.servers = [ "python-lsp-server" ];
+      treesitter.package = pkgs.vimPlugins.nvim-treesitter-parsers.python; # For some reason the default python treesitter package is empty?
     };
     ts = {
       enable = true;
       extensions.ts-error-translator.enable = true;
-      lsp.enable = true;
-    };
-    yaml = {
-      enable = true;
-      lsp.enable = true;
     };
   };
 }
