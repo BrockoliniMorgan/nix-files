@@ -37,7 +37,7 @@ echo "Finished setting up machine-specific configs"
 nix-shell --extra-experimental-features nix-command -p git --command "./scripts/regenerate-hardware-config.sh -h '$1'"
 
 echo "Finished generating hardware config"
-eval "sed -i -e '/systems = \[/a\' -e 'rec { hostName = \"\$\{userName\}-$1\"; system = \"x86_64-linux\"; userName = defaultUserName; }' ./flake.nix"
+eval "sed -i -e '/systems = \[/a\' -e 'rec { hostName = \"\$\{username\}-$1\"; system = \"x86_64-linux\"; username = defaultUserName; }' ./flake.nix"
 echo "Finished adding this machine to flake"
 nix fmt --extra-experimental-features nix-command --extra-experimental-features flakes
 echo "Formatted"

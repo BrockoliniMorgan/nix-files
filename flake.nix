@@ -18,7 +18,10 @@
     };
     nvf = {
       url = "github:notashelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "flake-utils/systems";
+      };
     };
   };
 
@@ -31,7 +34,7 @@
       ...
     }@inputs:
     let
-      defaultUserName = "brock"; # Default to username "brock" when not supplied
+      defaultUsername = "brock"; # Default to username "brock" when not supplied
       allowUnfree = false; # Specify this once, then make all other references to unfree stuff reference this value
       allowUnfreePredicate = # Same as above
         pkg:
@@ -61,26 +64,26 @@
       # All of my (current) systems
       systems = [
         rec {
-          hostName = "${userName}-vivobook";
+          hostName = "${username}-vivobook";
           system = "x86_64-linux";
-          userName = defaultUserName;
+          username = defaultUsername;
         }
         rec {
-          hostName = "${userName}-thinkpad";
+          hostName = "${username}-thinkpad";
           system = "x86_64-linux";
-          userName = defaultUserName;
+          username = defaultUsername;
         }
         rec {
-          hostName = "${userName}-desktop";
+          hostName = "${username}-desktop";
           system = "x86_64-linux";
-          userName = defaultUserName;
+          username = defaultUsername;
         }
       ];
       createSystem = # Create a NixOS system
         {
           hostName,
           system,
-          userName ? defaultUserName,
+          username ? defaultUsername,
           ...
         }:
         {
@@ -107,7 +110,7 @@
                     backupFileExtension = ".bak";
                     useGlobalPkgs = true;
                     useUserPackages = true;
-                    users.${userName} = import ./homeConfig; # All the home-level configuration
+                    users.${specialArgs.username} = import ./homeConfig; # All the home-level configuration
                     extraSpecialArgs = specialArgs; # Pass all the NixOS module args to the Home manager modules
                   };
                 }
@@ -117,7 +120,7 @@
               # Extra arguments to pass to modules, along with config, options, pkgs, and modulesPath
               inherit
                 allowUnfree
-                userName
+                username
                 hostName
                 inputs
                 ;
@@ -128,11 +131,11 @@
         {
           hostName,
           system,
-          userName ? defaultUserName,
+          username ? defaultUsername,
           ...
         }:
         {
-          "${userName}@${hostName}" = home-manager.lib.homeManagerConfiguration {
+          "${username}@${hostName}" = home-manager.lib.homeManagerConfiguration {
             pkgs = import nixpkgs {
               # Home manager requires pkgs to be one of the inputs, but NixOS doesn't - there's probably a reason for it, but it's annoying
               inherit system;
@@ -148,7 +151,7 @@
               # Extra arguments to pass to modules, along with lib, config, options, and modulesPath (for NixOS)
               inherit
                 allowUnfree
-                userName
+                username
                 hostName
                 inputs
                 ;
@@ -172,15 +175,6 @@
         };
 
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
-        treefmt-write-config = pkgs.writeShellScriptBin "treefmt-write-config" ''
-          cd "$(git rev-parse --show-toplevel)"
-          cp ${treefmtEval.config.build.configFile} ./treefmt.toml
-          chmod +w treefmt.toml
-          # strip out Nix store prefix path from the config,
-          # along with ruff-check (it just causes errors when trying to "format" in VSCode,
-          # since it's a linter)
-          sed -i -e 's,command.*/,command = ",' -e "/\[formatter\.ruff-check\]/,/^$/d" treefmt.toml
-        '';
       in
       {
         devShells = {
@@ -203,16 +197,6 @@
               inherit pkgs;
               modules = [ { config.vim = import ./homeConfig/neovim.nix { inherit pkgs; }; } ];
             }).neovim;
-          tools =
-            pkgs.runCommand "tools"
-              {
-                passthru = {
-                  inherit treefmt-write-config; # Update the formatter config (treefmt.toml) from the nix file (treefmt.nix)
-                };
-              }
-              ''
-                mkdir $out
-              '';
         };
       }
     );

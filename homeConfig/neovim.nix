@@ -11,11 +11,7 @@
       {
         name = "fzf";
         packages = [ pkgs.vimPlugins.telescope-fzf-native-nvim ];
-        setup = {
-          fzf = {
-            fuzzy = true;
-          };
-        };
+        setup.fzf.fuzzy = true;
       }
     ];
   };
@@ -46,23 +42,17 @@
     name = "gruvbox";
     style = "dark";
   };
-  autocomplete = {
-    # Autocomplete for text
-    blink-cmp.enable = true;
-  };
+  # Autocomplete for text
+  autocomplete.blink-cmp.enable = true;
   diagnostics = {
     enable = true;
-    config = {
-      virtual_lines = true;
-    };
+    config.virtual_lines = true;
   };
   binds = {
     hardtime-nvim.enable = true;
     whichKey = {
       enable = true;
-      setupOpts = {
-        notify = true;
-      };
+      setupOpts.notify = true;
     };
   };
   autopairs.nvim-autopairs.enable = true;
@@ -72,7 +62,7 @@
     sleuth.enable = true; # Figures out the proper indenting for tab automatically
     nix-develop.enable = true;
     smart-splits = {
-      # Moving around in windows using leader+hjkl and resizing using leader+r hjkl
+      # Moving around in windows using leader+hjkl and resizing using leader+CTRL+hjkl
       enable = true;
       keymaps = {
         move_cursor_down = "<leader>j";
@@ -89,7 +79,7 @@
   };
   visuals = {
     highlight-undo.enable = true; # Highlight changes when in normal mode
-    indent-blankline.enable = true; # Indentation visual. TODO: Make these softer. Right now, they're kinda bright
+    indent-blankline.enable = true; # Indentation visual
     nvim-cursorline = {
       # Underline the current word everywhere
       enable = true;

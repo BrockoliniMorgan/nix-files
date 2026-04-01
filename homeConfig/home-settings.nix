@@ -2,13 +2,13 @@
   lib,
   pkgs,
   allowUnfree,
-  userName,
+  username,
   ...
 }:
 {
   home = {
-    username = "${userName}";
-    homeDirectory = "/home/${userName}";
+    inherit username;
+    homeDirectory = "/home/${username}";
 
     stateVersion = "25.11";
 

@@ -4,7 +4,7 @@
 
 {
   hostName,
-  userName,
+  username,
   ...
 }:
 
@@ -57,7 +57,7 @@
     graphics.enable = true;
   };
 
-  users.users.${userName} = {
+  users.users.${username} = {
     isNormalUser = true;
     extraGroups = [
       "networkmanager"
