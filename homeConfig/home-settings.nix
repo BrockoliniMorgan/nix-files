@@ -35,6 +35,7 @@
           allowUnfree = ${lib.boolToString allowUnfree};
         }
       '';
+      "DigiCertGlobalRootG2.crt".source = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
     };
 
     shell.enableBashIntegration = true;

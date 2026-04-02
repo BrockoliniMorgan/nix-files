@@ -29,7 +29,14 @@
     inherit hostName;
 
     networkmanager.enable = true; # Enables wireless support via wpa_supplicant.
-    firewall.enable = false;
+
+    # Allow ROS2 ports from DOMAIN_ID 42 to 51 with 150 participants
+    firewall.allowedUDPPortRanges = [
+      {
+        from = 17900;
+        to = 20461;
+      }
+    ];
   };
 
   # Set your time zone.
