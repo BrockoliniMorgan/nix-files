@@ -35,8 +35,6 @@
         bind = [
           "$mod, Return, exec, ${pkgs.kitty}/bin/kitty"
           "$mod, S, exec, ${pkgs.rofi}/bin/rofi -show drun"
-          "$mod, Q, killactive"
-          "$mod&SHIFT, Q, forcekillactive"
           "$mod, V, exec, vivaldi"
           "$mod, D, exec, discord"
           "$mod, U, exec, qutebrowser"
@@ -61,20 +59,16 @@
           "$mod&SHIFT, L, movewindow, r"
           "$mod&SHIFT, K, movewindow, u"
           "$mod&SHIFT, J, movewindow, d"
-          # Arrows and vim keybinds for switching workspaces incrementally
-          "$mod&CTRL, code:113, workspace, -1"
-          "$mod&CTRL, code:114, workspace, +1"
-          "$mod&CTRL, H, workspace, -1"
-          "$mod&CTRL, L, workspace, +1"
-          "$mod&CTRL&SHIFT, code:113, movetoworkspace, -1"
-          "$mod&CTRL&SHIFT, code:114, movetoworkspace, +1"
-          "$mod&CTRL&SHIFT, H, movetoworkspace, -1"
-          "$mod&CTRL&SHIFT, L, movetoworkspace, +1"
 
           "CTRL ALT, L, exec, hyprlock"
           ", switch:on:Lid Switch, exec, hyprlock"
           "$mod, R, submap, Resize"
           "$mod&SHIFT, code:201, exec, kitty ~/nix-files"
+
+          ", XF86AudioMute, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle"
+          ", XF86AudioMicMute, exec, ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+          ", XF86SelectiveScreenshot, exec, ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy"
+          ", Print, exec, ${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy"
         ]
         # Workspaces 1-12 - keys 1-=
         ++ (builtins.concatLists (
@@ -89,6 +83,28 @@
             ]
           ) 12
         ));
+        binde = [
+          # Arrows and vim keybinds for switching workspaces incrementally
+          "$mod&CTRL, code:113, workspace, -1"
+          "$mod&CTRL, code:114, workspace, +1"
+          "$mod&CTRL, H, workspace, -1"
+          "$mod&CTRL, L, workspace, +1"
+          "$mod&CTRL&SHIFT, code:113, movetoworkspace, -1"
+          "$mod&CTRL&SHIFT, code:114, movetoworkspace, +1"
+          "$mod&CTRL&SHIFT, H, movetoworkspace, -1"
+          "$mod&CTRL&SHIFT, L, movetoworkspace, +1"
+
+          "$mod, Q, killactive"
+          "$mod&SHIFT, Q, forcekillactive"
+
+          ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%+"
+          ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
+
+          # TODO: Set a limit on volume - probably requires making a shell script
+          ", XF86AudioLowerVolume, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5% && ${pkgs.libnotify}/bin/notify-send -t 200 Audio \"$(${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@ | grep -o -P \"/ .*?(?>%)\" - | grep -o -P \"[0-9]{1,3}(?>%)\" - | tr '\\n' ' ')\""
+          ", XF86AudioRaiseVolume, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5% && ${pkgs.libnotify}/bin/notify-send -t 200 Audio \"$(${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@ | grep -o -P \"/ .*?(?>%)\" - | grep -o -P \"[0-9]{1,3}(?>%)\" - | tr '\\n' ' ')\""
+        ];
+
         gesture = [
           "3, horizontal, workspace"
           "3, vertical, special, dumpWorkspace"
