@@ -29,6 +29,9 @@
       themeFile = "gruvbox-dark";
       enableGitIntegration = true;
       shellIntegration.enableBashIntegration = true;
+      settings = {
+        scrollback_lines = 20000;
+      };
     };
 
     rofi = {
