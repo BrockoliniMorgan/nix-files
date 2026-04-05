@@ -67,6 +67,10 @@
 
           ", XF86AudioMute, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle"
           ", XF86AudioMicMute, exec, ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+          ", XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
+          ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
+          ", XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
+          ", XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop"
           ", XF86SelectiveScreenshot, exec, ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy"
           ", Print, exec, ${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy"
         ]
