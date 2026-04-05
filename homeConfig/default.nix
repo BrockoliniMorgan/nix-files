@@ -8,6 +8,7 @@
     ./programs.nix
     ./screenshot.nix
     ./qutebrowser.nix
+    ./gnome.nix
     inputs.nvf.homeManagerModules.default
     {
       programs.nvf = {
@@ -16,6 +17,5 @@
         settings.vim = import ./neovim.nix { inherit pkgs; };
       };
     }
-    ./machine-specific-home-configuration
   ];
 }

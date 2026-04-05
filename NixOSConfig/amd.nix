@@ -1,5 +1,5 @@
-{ ... }:
-{
+{ lib, config, ... }:
+lib.mkIf config.has_amd_gpu {
   hardware = {
     amdgpu = {
       opencl.enable = true;

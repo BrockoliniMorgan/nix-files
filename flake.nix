@@ -67,16 +67,27 @@
           hostName = "${username}-vivobook";
           system = "x86_64-linux";
           username = defaultUsername;
+          options = {
+            is_laptop = true;
+            hyprland_display = "eDP-1, 1920x1080@60.01, 0x0, 1";
+          };
         }
         rec {
           hostName = "${username}-thinkpad";
           system = "x86_64-linux";
           username = defaultUsername;
+          options = {
+            is_laptop = true;
+            hyprland_display = "eDP-1, 1920x1200@120, 0x0, 1";
+          };
         }
         rec {
           hostName = "${username}-desktop";
           system = "x86_64-linux";
           username = defaultUsername;
+          options = {
+            hyprland_display = "DP-3, 2560x1440@143.91, 0x0, 1";
+          };
         }
       ];
       createSystem = # Create a NixOS system
@@ -84,6 +95,7 @@
           hostName,
           system,
           username ? defaultUsername,
+          options ? { },
           ...
         }:
         {
@@ -101,6 +113,8 @@
                   };
                 }
               )
+              ./options.nix
+              options
               ./NixOSConfig # All the system-level configuration
               home-manager.nixosModules.home-manager # Home manager configuration
               (
@@ -132,6 +146,7 @@
           hostName,
           system,
           username ? defaultUsername,
+          options ? { },
           ...
         }:
         {
@@ -145,6 +160,8 @@
               };
             };
             modules = [
+              options
+              ./options.nix
               ./homeConfig # All the home-level configuration
             ];
             extraSpecialArgs = {

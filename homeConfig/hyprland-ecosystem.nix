@@ -1,4 +1,10 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  osConfig,
+  config,
+  lib,
+  ...
+}:
 {
   home.packages = with pkgs; [
     swaybg
@@ -109,7 +115,7 @@
           ", XF86AudioRaiseVolume, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5% && ${pkgs.libnotify}/bin/notify-send -t 200 Audio \"$(${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@ | grep -o -P \"/ .*?(?>%)\" - | grep -o -P \"[0-9]{1,3}(?>%)\" - | tr '\\n' ' ')\""
         ];
 
-        gesture = [
+        gesture = lib.mkIf (osConfig.is_laptop or config.is_laptop) [
           "3, horizontal, workspace"
           "3, vertical, special, dumpWorkspace"
         ];
@@ -123,6 +129,7 @@
         # Set all unspecified monitors (machine-specific) to their preferred resolution,
         # on the left of the others, with a scale of 1
         monitor = [
+          (osConfig.hyprland_display or config.hyprland_display)
           ", preferred, auto-left, 1"
         ];
         animation = [

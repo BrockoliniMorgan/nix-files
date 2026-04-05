@@ -5,6 +5,8 @@
 {
   hostName,
   username,
+  lib,
+  config,
   ...
 }:
 
@@ -31,7 +33,7 @@
     networkmanager.enable = true; # Enables wireless support via wpa_supplicant.
 
     # Allow ROS2 ports from DOMAIN_ID 42 to 51 with 150 participants
-    firewall.allowedUDPPortRanges = [
+    firewall.allowedUDPPortRanges = lib.mkIf config.is_laptop [
       {
         from = 17900;
         to = 20461;
