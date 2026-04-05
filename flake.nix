@@ -86,6 +86,7 @@
           system = "x86_64-linux";
           username = defaultUsername;
           options = {
+            has_amd_gpu = true;
             hyprland_display = "DP-3, 2560x1440@143.91, 0x0, 1";
           };
         }
