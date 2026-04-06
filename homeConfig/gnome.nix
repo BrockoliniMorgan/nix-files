@@ -5,7 +5,10 @@
   config,
   ...
 }:
-lib.mkIf (osConfig.is_laptop or config.is_laptop) {
+let
+  enable_gnome = (osConfig.enable_gnome or config.enable_gnome);
+in
+lib.mkIf enable_gnome {
   home.packages = with pkgs; [ dconf-editor ];
   dconf = {
     enable = true;

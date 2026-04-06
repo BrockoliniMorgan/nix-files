@@ -16,7 +16,7 @@
 
       warn-dirty = false;
 
-      # Setup trusted substituters for perseus repo
+      # Setup trusted substituters for perseus repo and hyprland
       trusted-substituters = [
         "https://roar-qutrc.cachix.org"
         "https://ros.cachix.org"

@@ -1,7 +1,13 @@
-{ lib, ... }:
+{ lib, config, ... }:
 {
   options = {
     is_laptop = lib.mkEnableOption "is_laptop";
+    enable_gnome = lib.mkOption {
+      type = lib.types.bool;
+      default = config.is_laptop;
+      example = true;
+      description = "Enable GNOME desktop environment";
+    };
     has_amd_gpu = lib.mkEnableOption "has_amd_gpu";
     hyprland_display = lib.mkOption {
       type = lib.types.str;

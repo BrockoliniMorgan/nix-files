@@ -4,9 +4,9 @@
   lib,
   ...
 }:
-lib.mkIf config.is_laptop {
+lib.mkIf config.enable_gnome {
+  # Enable GNOME for ease for others
   services = {
-    # Enable GNOME for ease for others
     desktopManager.gnome.enable = true;
     gnome.core-apps.enable = false;
   };
