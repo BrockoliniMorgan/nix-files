@@ -21,19 +21,7 @@ sudo chmod +w ~/nix-files
 cd ~/nix-files
 
 HOSTNAME="$USERNAME-$1"
-mkdir -p ./NixOSConfig/machine-specific-configuration/"$HOSTNAME"
-mkdir -p ./homeConfig/machine-specific-home-configuration/"$HOSTNAME"
 
-echo "{ ... }:
-{
-
-}" >./NixOSConfig/machine-specific-configuration/"$HOSTNAME"/default.nix
-
-echo "{ ... }:
-{
-
-}" >./homeConfig/machine-specific-home-configuration/"$HOSTNAME"/default.nix
-echo "Finished setting up machine-specific configs"
 nix-shell --extra-experimental-features nix-command -p git --command "./scripts/regenerate-hardware-config.sh -h '$1'"
 
 echo "Finished generating hardware config"
