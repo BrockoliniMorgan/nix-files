@@ -19,6 +19,14 @@
       '';
     };
 
+    git = {
+      enable = true;
+      settings.user = {
+        name = "BrockoliniMorgan";
+        email = "brockjamesmorgan@gmail.com";
+      };
+    };
+
     kitty = {
       enable = true;
       font = {
