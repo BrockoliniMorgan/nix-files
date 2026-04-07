@@ -117,8 +117,9 @@
               ./options.nix
               options
               ./NixOSConfig # All the system-level configuration
-              home-manager.nixosModules.home-manager # Home manager configuration
+              home-manager.nixosModules.home-manager # Add the home manager option set
               (
+                # Home manager configuration
                 { specialArgs, ... }:
                 {
                   home-manager = {
