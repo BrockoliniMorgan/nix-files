@@ -62,17 +62,17 @@
     sleuth.enable = true; # Figures out the proper indenting for tab automatically
     nix-develop.enable = true;
     smart-splits = {
-      # Moving around in windows using leader+hjkl and resizing using leader+CTRL+hjkl
+      # Moving around in windows using leader+w+[hjkl] and resizing using leader+w+[HJKL]
       enable = true;
       keymaps = {
-        move_cursor_down = "<leader>j";
-        move_cursor_up = "<leader>k";
-        move_cursor_left = "<leader>h";
-        move_cursor_right = "<leader>l";
-        resize_down = "<leader><C-j>";
-        resize_up = "<leader><C-k>";
-        resize_left = "<leader><C-h>";
-        resize_right = "<leader><C-l>";
+        move_cursor_down = "<leader>wj";
+        move_cursor_up = "<leader>wk";
+        move_cursor_left = "<leader>wh";
+        move_cursor_right = "<leader>wl";
+        resize_down = "<leader>wJ";
+        resize_up = "<leader>wK";
+        resize_left = "<leader>wH";
+        resize_right = "<leader>wL";
       };
     };
     undotree.enable = true; # TODO: configure this with bindings. Looks cool, I have no idea how to use it
