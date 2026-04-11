@@ -130,8 +130,18 @@ in
         misc = {
           vfr = true;
         };
-        # Set all unspecified monitors (machine-specific) to their preferred resolution,
+        input = {
+          repeat_delay = 300;
+          repeat_rate = 40;
+          touchpad = {
+            natural_scroll = true;
+            middle_button_emulation = true;
+          };
+        };
+        debug.disable_logs = false;
+        # Set all unspecified monitors to their preferred resolution,
         # on the left of the others, with a scale of 1
+        # The 'display' option is set in the flake.nix per-machine
         monitor = [
           display
           ", preferred, auto-left, 1"
@@ -188,9 +198,6 @@ in
           };
         };
       };
-      extraConfig = ''
-        debug:disable_logs = false
-      '';
     };
   programs.hyprlock.enable = true;
   services.hypridle = {
