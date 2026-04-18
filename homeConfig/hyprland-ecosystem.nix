@@ -131,6 +131,9 @@ in
           vfr = true;
         };
         input = {
+          kb_options = [
+            "caps:escape"
+          ];
           repeat_delay = 300;
           repeat_rate = 40;
           touchpad = {
