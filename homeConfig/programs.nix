@@ -3,7 +3,6 @@
   programs = {
     bash = {
       enable = true;
-      enableCompletion = true;
       initExtra = ''
         eval "$(direnv hook bash)"
       '';
@@ -56,6 +55,7 @@
         proc_aggregate = true;
         proc_gradient = false;
         proc_left = true;
+        proc_per_core = true;
         proc_tree = true;
         rounded_corners = false;
         swap_disk = false;
