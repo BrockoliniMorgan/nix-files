@@ -117,7 +117,7 @@
       lsp.servers = [ "python-lsp-server" ];
       treesitter.package = pkgs.vimPlugins.nvim-treesitter-parsers.python; # For some reason the default python treesitter package is empty?
     };
-    ts = {
+    typescript = {
       enable = true;
       extensions.ts-error-translator.enable = true;
     };
