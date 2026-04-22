@@ -10,9 +10,6 @@ let
   display = (osConfig.hyprland_display or config.hyprland_display);
 in
 {
-  home.packages = with pkgs; [
-    swaybg
-  ];
   wayland.windowManager.hyprland =
     let
       workspaceNames = [

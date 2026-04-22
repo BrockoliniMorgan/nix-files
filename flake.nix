@@ -192,38 +192,34 @@
             inherit allowUnfree allowUnfreePredicate;
           };
         };
+
         commitScript = pkgs.writeShellScriptBin "commit" ''
-          cd "$(git rev-parse --show-toplevel)"
-          git add .
+          cd "$(${pkgs.git}/bin/git rev-parse --show-toplevel)"
+          ${pkgs.git}/bin/git add .
           nix fmt
-          git add .
-          git commit -m "$1"
+          ${pkgs.git}/bin/git add .
+          ${pkgs.git}/bin/git commit -m "$1"
         '';
 
-        regenerateConfig = pkgs.writeShellScriptBin "regenerate_hardware_config" ''
-          HOSTNAME=$(${pkgs.hostname}/bin/hostname)
-          NO_ADD=0
-          while getopts ":nh:" option; do
-            case "$option" in
-            n) NO_ADD=1 ;;
-            h) HOSTNAME="brock-$OPTARG" ;;
-            *)
-              echo "ERROR! Incorrect flag!"
-              exit 1
-              ;;
-            esac
-          done
+        regenerateConfig =
+          pkgs.runCommand "regenerate_hardware_config"
+            {
+              nativeBuildInputs = with pkgs; [ makeWrapper ];
+            }
+            ''
+              makeWrapper ${./scripts/regenerate_hardware_config.sh} $out/bin/regenerate_hardware_config \
+                --prefix PATH : ${
+                  pkgs.lib.makeBinPath (
+                    with pkgs;
+                    [
+                      git
+                      nix
+                      hostname
+                    ]
+                  )
+                }
+            '';
 
-          TOP_LEVEL=$(${pkgs.git}/bin/git rev-parse --show-toplevel)
-          HARDWARE_CONFIG_DIR="$TOP_LEVEL/NixOSConfig/hardware-configuration/$HOSTNAME/"
-          mkdir -p "$HARDWARE_CONFIG_DIR"
-          nixos-generate-config --show-hardware-config >"$HARDWARE_CONFIG_DIR/default.nix"
-          cd "$TOP_LEVEL" || exit
-          if ! [[ "$NO_ADD" ]]; then
-            git add .
-          fi
-          nix fmt --extra-experimental-features nix-command --extra-experimental-features flakes
-        '';
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
       in
       {
