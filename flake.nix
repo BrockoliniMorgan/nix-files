@@ -192,6 +192,13 @@
             inherit allowUnfree allowUnfreePredicate;
           };
         };
+        commitScript = pkgs.writeShellScriptBin "commit" ''
+          cd "$(git rev-parse --show-toplevel)"
+          git add .
+          nix fmt
+          git add .
+          git commit -m "$1"
+        '';
 
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
       in
@@ -200,12 +207,15 @@
           default = pkgs.mkShell {
             # Default shell for working on the config
             name = "Nix-files-devShell";
-            packages = with pkgs; [
-              man-pages
-              man-pages-posix
-              stdmanpages
-              wev # Check key presses - useful for hyprland binds
-            ];
+            packages =
+              with pkgs;
+              [
+                man-pages
+                man-pages-posix
+                stdmanpages
+                wev # Check key presses - useful for hyprland binds
+              ]
+              ++ [ commitScript ];
           };
         };
 
