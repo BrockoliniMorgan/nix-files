@@ -200,6 +200,30 @@
           git commit -m "$1"
         '';
 
+        regenerateConfig = pkgs.writeShellScriptBin "regenerate_hardware_config" ''
+          HOSTNAME=$(${pkgs.hostname}/bin/hostname)
+          NO_ADD=0
+          while getopts ":nh:" option; do
+            case "$option" in
+            n) NO_ADD=1 ;;
+            h) HOSTNAME="brock-$OPTARG" ;;
+            *)
+              echo "ERROR! Incorrect flag!"
+              exit 1
+              ;;
+            esac
+          done
+
+          TOP_LEVEL=$(${pkgs.git}/bin/git rev-parse --show-toplevel)
+          HARDWARE_CONFIG_DIR="$TOP_LEVEL/NixOSConfig/hardware-configuration/$HOSTNAME/"
+          mkdir -p "$HARDWARE_CONFIG_DIR"
+          nixos-generate-config --show-hardware-config >"$HARDWARE_CONFIG_DIR/default.nix"
+          cd "$TOP_LEVEL" || exit
+          if ! [[ "$NO_ADD" ]]; then
+            git add .
+          fi
+          nix fmt --extra-experimental-features nix-command --extra-experimental-features flakes
+        '';
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
       in
       {
@@ -215,7 +239,10 @@
                 stdmanpages
                 wev # Check key presses - useful for hyprland binds
               ]
-              ++ [ commitScript ];
+              ++ [
+                commitScript
+                regenerateConfig
+              ];
           };
         };
 
@@ -226,6 +253,7 @@
               inherit pkgs;
               modules = [ { config.vim = import ./homeConfig/neovim.nix { inherit pkgs; }; } ];
             }).neovim;
+          inherit regenerateConfig;
         };
       }
     );

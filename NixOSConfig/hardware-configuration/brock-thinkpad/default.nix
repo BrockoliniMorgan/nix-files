@@ -11,6 +11,7 @@
 
 {
   imports = [
+    (modulesPath + "/hardware/cpu/intel-npu.nix")
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
@@ -40,5 +41,6 @@
   swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel.npu.enable = true;
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

@@ -22,12 +22,12 @@ cd ~/nix-files
 
 HOSTNAME="$USERNAME-$1"
 
-nix-shell --extra-experimental-features nix-command -p git --command "./scripts/regenerate-hardware-config.sh -h '$1'"
+nix run .#regenerate_hardware_config --extra-experimental-features "nix-command flakes" -- -h "$1"
 
 echo "Finished generating hardware config"
 eval "sed -i -e '/systems = \[/a\' -e 'rec { hostName = \"\$\{username\}-$1\"; system = \"x86_64-linux\"; username = defaultUserName; }' ./flake.nix"
 echo "Finished adding this machine to flake"
-nix fmt --extra-experimental-features nix-command --extra-experimental-features flakes
+nix fmt --extra-experimental-features "nix-command flakes"
 echo "Formatted"
 nix-shell -p git --command "git add ."
 sudo NIXPKGS_ALLOW_UNFREE=1 nixos-rebuild switch --flake ~/nix-files#"$HOSTNAME" --impure
