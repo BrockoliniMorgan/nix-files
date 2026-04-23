@@ -21,6 +21,7 @@
     autoindent = true;
   };
   globals.mapleader = " ";
+  # TODO: Maybe remove this
   filetree.neo-tree = {
     enable = true;
     setupOpts = {

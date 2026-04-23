@@ -35,6 +35,7 @@
           allowUnfree = ${lib.boolToString allowUnfree};
         }
       '';
+      # Use this for special networks authentication - ones that have security
       "ca-bundle.crt".source = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
     };
 

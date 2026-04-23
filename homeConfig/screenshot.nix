@@ -1,11 +1,9 @@
 { pkgs, ... }:
+let
+  screenshot = pkgs.writeShellScriptBin "screenshot" ''
+    ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy
+  '';
+in
 {
-  home.packages = with pkgs; [
-    slurp # Part of screenshot
-    grim # Part of screenshot
-    wl-clipboard # Part of screenshot
-  ];
-  home.shellAliases = {
-    screenshot = "slurp | grim -g - - | wl-copy";
-  };
+  home.packages = [ screenshot ];
 }
