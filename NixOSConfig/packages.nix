@@ -34,5 +34,6 @@
   programs = {
     steam.enable = true;
     hyprland.enable = true;
+    ssh.startAgent = true;
   };
 }
