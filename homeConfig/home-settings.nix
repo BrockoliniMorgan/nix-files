@@ -22,7 +22,6 @@
         libreoffice-fresh
         neovim
         spotify
-        zellij
       ]
       ++ (with unstable; [
         bambu-studio
