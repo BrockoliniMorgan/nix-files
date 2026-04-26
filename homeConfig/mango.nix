@@ -131,7 +131,6 @@ in
           exec-once = [
             # Anime girl background :)
             # "${pkgs.swaybg}/bin/swaybg -i ${backgroundPhotoDir}"
-            "${pkgs.waybar}/bin/waybar"
           ];
           trackpad_natural_scrolling = 1;
           disable_while_typing = 0;

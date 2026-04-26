@@ -48,7 +48,7 @@
     systemd = {
       enable = true;
       enableDebug = true;
-      target = "hyprland-session.target";
+      target = "graphical.target";
     };
   };
 }
