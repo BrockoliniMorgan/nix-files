@@ -78,7 +78,7 @@ in
           ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
           ", XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
           ", XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop"
-          ", XF86SelectiveScreenshot, exec, ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy"
+          ", XF86SelectiveScreenshot, exec, ${pkgs.screenshot}/bin/screenshot"
           ", Print, exec, ${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy"
         ]
         # Workspaces 1-12 - keys 1-=

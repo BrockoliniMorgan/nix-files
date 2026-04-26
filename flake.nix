@@ -60,6 +60,7 @@
               ;
           }
         ))
+        (import ./overlays/screenshot.nix)
       ];
       # All of my (current) systems
       systems = [

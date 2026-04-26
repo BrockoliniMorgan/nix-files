@@ -21,6 +21,7 @@
         gnome-calculator
         libreoffice-fresh
         neovim
+        screenshot
         spotify
       ]
       ++ (with unstable; [

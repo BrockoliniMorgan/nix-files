@@ -6,7 +6,6 @@
     ./other.nix
     ./home-settings.nix
     ./programs.nix
-    ./screenshot.nix
     ./qutebrowser.nix
     ./gnome.nix
     inputs.nvf.homeManagerModules.default
