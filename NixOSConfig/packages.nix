@@ -4,6 +4,7 @@
     systemPackages = (
       with pkgs;
       [
+        waybar
         bluez # Bluetooth
         brightnessctl
         btop

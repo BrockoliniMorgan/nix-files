@@ -48,7 +48,6 @@
     systemd = {
       enable = true;
       enableDebug = true;
-      target = "graphical.target";
     };
   };
 }
