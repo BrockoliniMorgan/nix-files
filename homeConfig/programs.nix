@@ -20,9 +20,14 @@
 
     git = {
       enable = true;
-      settings.user = {
-        name = "BrockoliniMorgan";
-        email = "brockjamesmorgan@gmail.com";
+      settings = {
+        user = {
+          name = "BrockoliniMorgan";
+          email = "brockjamesmorgan@gmail.com";
+        };
+        init = {
+          defaultBranch = "main";
+        };
       };
     };
 
@@ -38,6 +43,7 @@
       shellIntegration.enableBashIntegration = true;
       settings = {
         scrollback_lines = 20000;
+        clipboard_control = "write-clipboard read-clipboard write-primary read-primary";
       };
     };
 

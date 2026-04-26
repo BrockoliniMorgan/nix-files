@@ -103,10 +103,6 @@
       enable = true;
       cHeader = true;
     };
-    markdown = {
-      enable = true;
-      extensions.markview-nvim.enable = true;
-    };
     nix = {
       enable = true;
       format.type = [ "nixfmt" ];

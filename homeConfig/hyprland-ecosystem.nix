@@ -136,6 +136,7 @@ in
           touchpad = {
             natural_scroll = true;
             middle_button_emulation = true;
+            disable_while_typing = false;
           };
         };
         debug.disable_logs = false;
