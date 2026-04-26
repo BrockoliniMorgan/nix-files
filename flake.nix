@@ -69,6 +69,7 @@
           username = defaultUsername;
           options = {
             is_laptop = true;
+            specialisation.gnome.configuration.enable_gnome = true;
             hyprland_display = "eDP-1, 1920x1080@60.01, 0x0, 1";
           };
         }
@@ -78,6 +79,7 @@
           username = defaultUsername;
           options = {
             is_laptop = true;
+            specialisation.gnome.configuration.enable_gnome = true;
             hyprland_display = "eDP-1, 1920x1200@120, 0x0, 1";
           };
         }
