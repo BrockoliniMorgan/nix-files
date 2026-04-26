@@ -24,7 +24,7 @@
       };
     };
     mango = {
-      url = "github:mangowm/mango";
+      url = "github:grecodavide/mango";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "nvf/flake-parts";

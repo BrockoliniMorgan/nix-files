@@ -31,6 +31,17 @@
       };
     };
 
+    ghostty = {
+      enable = true;
+      enableBashIntegration = true;
+      settings = {
+        font-family = "Iosevka Nerd Font";
+        font-size = 10.5;
+        theme = "Gruvbox Dark";
+        window-inherit-working-directory = false;
+      };
+    };
+
     kitty = {
       enable = true;
       font = {

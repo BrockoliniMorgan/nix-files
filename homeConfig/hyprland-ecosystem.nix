@@ -40,7 +40,7 @@ in
       settings = {
         "$mod" = "SUPER";
         bind = [
-          "$mod, Return, exec, ${pkgs.kitty}/bin/kitty"
+          "$mod, Return, exec, ${pkgs.ghostty}/bin/ghostty"
           "$mod, S, exec, ${pkgs.rofi}/bin/rofi -show drun"
           "$mod, V, exec, vivaldi"
           "$mod, D, exec, discord"
@@ -70,7 +70,7 @@ in
           "CTRL ALT, L, exec, hyprlock"
           ", switch:on:Lid Switch, exec, hyprlock"
           "$mod, R, submap, Resize"
-          "$mod&SHIFT, code:201, exec, kitty ~/nix-files"
+          "$mod&SHIFT, code:201, exec, ghostty ~/nix-files"
 
           ", XF86AudioMute, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle"
           ", XF86AudioMicMute, exec, ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle"

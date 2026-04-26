@@ -22,7 +22,7 @@ in
         in
         {
           bind = [
-            "${mod}, Return, spawn, ${pkgs.kitty}/bin/kitty"
+            "${mod}, Return, spawn, ${pkgs.ghostty}/bin/ghostty"
             "${mod}, S, spawn, ${pkgs.rofi}/bin/rofi -show drun"
             "${mod}, V, spawn, ${pkgs.vivaldi}/bin/vivaldi"
             "${mod}, D, spawn, ${pkgs.discord}/bin/discord"
@@ -55,7 +55,7 @@ in
             "${mod}+ALT, G, setlayout, tgmix"
 
             "CTRL+ALT, L, spawn, ${pkgs.hyprlock}/bin/hyprlock"
-            "${mod}+SHIFT, code:201, spawn, ${pkgs.kitty}/bin/kitty ~/nix-files"
+            "${mod}+SHIFT, code:201, spawn, ${pkgs.ghostty}/bin/ghostty --working-directory=~/nix-files"
 
             "NONE, XF86AudioMute, spawn, ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle"
             "NONE, XF86AudioMicMute, spawn, ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle"
@@ -77,6 +77,7 @@ in
             "${mod}+CTRL+SHIFT, J, tagtoright"
 
             "${mod}, Q, killclient"
+            "${mod}+SHIFT, Q, killclient, force"
             "${mod}, M, switch_layout"
             "${mod}, A, switch_proportion_preset"
             "${mod}, 0, set_proportion, 0.4"
@@ -146,6 +147,9 @@ in
             close = 200;
             focus = 200;
           };
+          xkb_rules.options = [
+            "caps:escape"
+          ];
           border_radius = 8;
           unfocused_opacity = 0.9;
           tag_animation_direction = 0;
