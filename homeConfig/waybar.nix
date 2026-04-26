@@ -11,7 +11,7 @@
           "*"
         ];
         modules-left = [
-          "hyprland/workspaces"
+          "ext/workspaces"
           "hyprland/submap"
         ];
         modules-center = [ "clock" ];

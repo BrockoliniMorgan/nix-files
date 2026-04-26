@@ -23,6 +23,13 @@
         systems.follows = "flake-utils/systems";
       };
     };
+    mango = {
+      url = "github:mangowm/mango";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "nvf/flake-parts";
+      };
+    };
   };
 
   outputs =
@@ -68,7 +75,7 @@
           hostName = "${username}-vivobook";
           system = "x86_64-linux";
           username = defaultUsername;
-          options = {
+          additionalOptions = {
             is_laptop = true;
             specialisation.gnome.configuration.enable_gnome = true;
             hyprland_display = "eDP-1, 1920x1080@60.01, 0x0, 1";
@@ -78,7 +85,7 @@
           hostName = "${username}-thinkpad";
           system = "x86_64-linux";
           username = defaultUsername;
-          options = {
+          additionalOptions = {
             is_laptop = true;
             specialisation.gnome.configuration.enable_gnome = true;
             hyprland_display = "eDP-1, 1920x1200@120, 0x0, 1";
@@ -88,7 +95,7 @@
           hostName = "${username}-desktop";
           system = "x86_64-linux";
           username = defaultUsername;
-          options = {
+          additionalOptions = {
             has_amd_gpu = true;
             hyprland_display = "DP-3, 2560x1440@143.91, 0x0, 1";
           };
@@ -99,7 +106,7 @@
           hostName,
           system,
           username ? defaultUsername,
-          options ? { },
+          additionalOptions ? { },
           ...
         }:
         {
@@ -118,7 +125,7 @@
                 }
               )
               ./options.nix
-              options
+              additionalOptions
               ./NixOSConfig # All the system-level configuration
               home-manager.nixosModules.home-manager # Add the home manager option set
               (
@@ -151,7 +158,7 @@
           hostName,
           system,
           username ? defaultUsername,
-          options ? { },
+          additionalOptions ? { },
           ...
         }:
         {
@@ -165,7 +172,7 @@
               };
             };
             modules = [
-              options
+              additionalOptions
               ./options.nix
               ./homeConfig # All the home-level configuration
             ];

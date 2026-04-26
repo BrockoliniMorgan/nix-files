@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 {
   imports = [
     ./other.nix
@@ -8,5 +8,6 @@
     ./amd_gpu.nix
     ./gnome.nix
     ./hardware-configuration
+    inputs.mango.nixosModules.mango
   ];
 }
