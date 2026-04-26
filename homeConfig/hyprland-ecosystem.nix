@@ -108,8 +108,8 @@ in
           "$mod, Q, killactive"
           "$mod&SHIFT, Q, forcekillactive"
 
-          ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%+"
-          ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
+          ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%+ && ${pkgs.libnotify}/bin/notify-send -t 200 Brightness \"$(${pkgs.brightnessctl}/bin/brightnessctl | awk '{print $4}' | head -n 2 | tail -n 1 | sed 's/[(,)]//g')\""
+          ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%- && ${pkgs.libnotify}/bin/notify-send -t 200 Brightness \"$(${pkgs.brightnessctl}/bin/brightnessctl | awk '{print $4}' | head -n 2 | tail -n 1 | sed 's/[(,)]//g')\""
 
           # TODO: Set a limit on volume - probably requires making a shell script
           ", XF86AudioLowerVolume, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5% && ${pkgs.libnotify}/bin/notify-send -t 200 Audio \"$(${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@ | grep -o -P \"/ .*?(?>%)\" - | grep -o -P \"[0-9]{1,3}(?>%)\" - | tr '\\n' ' ')\""
