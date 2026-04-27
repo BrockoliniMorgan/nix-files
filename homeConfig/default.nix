@@ -7,6 +7,7 @@
     ./other.nix
     ./home-settings.nix
     ./programs.nix
+    ./terminals.nix
     ./qutebrowser.nix
     ./gnome.nix
     inputs.nvf.homeManagerModules.default
