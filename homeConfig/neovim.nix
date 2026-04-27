@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   # NVF config
-  viAlias = true;
   vimAlias = true;
   syntaxHighlighting = true;
   bell = "visual"; # No sounds
@@ -22,13 +21,6 @@
   };
   globals.mapleader = " ";
   # TODO: Maybe remove this
-  filetree.neo-tree = {
-    enable = true;
-    setupOpts = {
-      enable_cursor_hijack = true; # The cursor is stuck at the start of the filename
-      git_status_async = true;
-    };
-  };
   lsp = {
     # Language server protocol support
     enable = true; # Automatically set lsp.enable = true for all enabled languages
@@ -61,7 +53,6 @@
     direnv.enable = true; # Direnv when entering directories
     icon-picker.enable = true; # Pretty icons
     sleuth.enable = true; # Figures out the proper indenting for tab automatically
-    nix-develop.enable = true;
     smart-splits = {
       # Moving around in windows using leader+w+[hjkl] and resizing using leader+w+[HJKL]
       enable = true;
@@ -70,13 +61,15 @@
         move_cursor_up = "<leader>wk";
         move_cursor_left = "<leader>wh";
         move_cursor_right = "<leader>wl";
+
+        # TODO: Reconfigure this - it's kinda annoying
         resize_down = "<leader>wJ";
         resize_up = "<leader>wK";
         resize_left = "<leader>wH";
         resize_right = "<leader>wL";
       };
     };
-    undotree.enable = true; # TODO: configure this with bindings. Looks cool, I have no idea how to use it
+    undotree.enable = true;
   };
   visuals = {
     highlight-undo.enable = true; # Highlight changes when in normal mode
@@ -112,11 +105,30 @@
       enable = true;
       format.type = [ "ruff" ];
       lsp.servers = [ "python-lsp-server" ];
-      treesitter.package = pkgs.vimPlugins.nvim-treesitter-parsers.python; # For some reason the default python treesitter package is empty?
     };
     typescript = {
       enable = true;
       extensions.ts-error-translator.enable = true;
     };
   };
+  keymaps = [
+    {
+      key = "<leader>ut";
+      mode = "n";
+      action = "vim.cmd.UndotreeToggle";
+      lua = true;
+      unique = true;
+    }
+    {
+      key = "<leader>uf";
+      mode = "n";
+      action = ''
+        function()
+          vim.cmd.UndotreeShow()
+          vim.cmd.UndotreeFocus()
+        end'';
+      lua = true;
+      unique = true;
+    }
+  ];
 }

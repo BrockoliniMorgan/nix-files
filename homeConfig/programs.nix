@@ -40,6 +40,9 @@
         theme = "Gruvbox Dark";
         window-inherit-working-directory = false;
         app-notifications = false;
+        clipboard-read = "allow";
+        clipboard-write = "allow";
+
       };
     };
 
