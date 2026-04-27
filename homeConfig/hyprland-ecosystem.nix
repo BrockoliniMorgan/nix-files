@@ -172,6 +172,7 @@ in
         exec-once = [
           # Anime girl background :)
           "${pkgs.swaybg}/bin/swaybg -i ${backgroundPhotoDir}"
+          "${pkgs.waybar}/bin/waybar"
         ];
       };
       submaps = {

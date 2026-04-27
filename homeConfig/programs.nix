@@ -39,6 +39,7 @@
         font-size = 10.5;
         theme = "Gruvbox Dark";
         window-inherit-working-directory = false;
+        app-notifications = false;
       };
     };
 
