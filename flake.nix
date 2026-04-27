@@ -81,6 +81,7 @@
             is_laptop = true;
             specialisation.gnome.configuration.enable_gnome = true;
             hyprland_display = "eDP-1, 1920x1080@60.01, 0x0, 1";
+            terminal = "foot";
           };
         }
         rec {
@@ -91,6 +92,7 @@
             is_laptop = true;
             specialisation.gnome.configuration.enable_gnome = true;
             hyprland_display = "eDP-1, 1920x1200@120, 0x0, 1";
+            terminal = "foot";
           };
         }
         rec {
@@ -100,6 +102,7 @@
           additionalOptions = {
             has_amd_gpu = true;
             hyprland_display = "DP-3, 2560x1440@143.91, 0x0, 1";
+            terminal = "foot";
           };
         }
       ];

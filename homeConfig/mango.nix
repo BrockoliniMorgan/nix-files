@@ -7,7 +7,7 @@
 }:
 let
   is_laptop = (osConfig.is_laptop or config.is_laptop);
-  display = (osConfig.hyprland_display or config.hyprland_display);
+  terminal = (osConfig.terminal or config.terminal);
 in
 {
   wayland.windowManager.mango =
@@ -43,7 +43,7 @@ in
         in
         {
           bind = [
-            "${mod}, Return, spawn, ${pkgs.ghostty}/bin/ghostty"
+            "${mod}, Return, spawn, ${pkgs.${terminal}}/bin/${terminal}"
             "${mod}, S, spawn, ${pkgs.rofi}/bin/rofi -show drun"
             "${mod}, V, spawn, ${pkgs.vivaldi}/bin/vivaldi"
             "${mod}, D, spawn, ${pkgs.discord}/bin/discord"
@@ -76,7 +76,7 @@ in
             "${mod}+ALT, G, setlayout, tgmix"
 
             "CTRL+ALT, L, spawn, ${pkgs.hyprlock}/bin/hyprlock"
-            "${mod}+SHIFT, code:201, spawn, ${pkgs.ghostty}/bin/ghostty --working-directory=~/nix-files"
+            "${mod}+SHIFT, code:201, spawn, ${pkgs.${terminal}}/bin/${terminal} --working-directory=~/nix-files || ${pkgs.${terminal}}/bin/${terminal} ~/nix-files/"
 
             "NONE, XF86AudioMute, spawn, ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle"
             "NONE, XF86AudioMicMute, spawn, ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle"

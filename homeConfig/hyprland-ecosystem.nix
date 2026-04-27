@@ -8,6 +8,7 @@
 let
   is_laptop = (osConfig.is_laptop or config.is_laptop);
   display = (osConfig.hyprland_display or config.hyprland_display);
+  terminal = (osConfig.terminal or config.terminal);
 in
 {
   wayland.windowManager.hyprland =
@@ -40,13 +41,13 @@ in
       settings = {
         "$mod" = "SUPER";
         bind = [
-          "$mod, Return, exec, ${pkgs.ghostty}/bin/ghostty"
+          "$mod, Return, exec, ${pkgs.${terminal}}/bin/${terminal}"
           "$mod, S, exec, ${pkgs.rofi}/bin/rofi -show drun"
           "$mod, V, exec, vivaldi"
           "$mod, D, exec, discord"
           "$mod, U, exec, qutebrowser"
           "$mod, F, togglefloating, active"
-          "$mod&SHIFT, R, exec, hyprctl reload"
+          "$mod+SHIFT, R, exec, hyprctl reload"
           "$mod, F12, fullscreen"
           # Arrows and vim keybinds for switching windows
           "$mod, code:113, movefocus, l"
@@ -58,19 +59,19 @@ in
           "$mod, K, movefocus, u"
           "$mod, J, movefocus, d"
           # Arrows and vim keybinds for moving windows
-          "$mod&SHIFT, code:113, movewindow, l"
-          "$mod&SHIFT, code:114, movewindow, r"
-          "$mod&SHIFT, code:111, movewindow, u"
-          "$mod&SHIFT, code:116, movewindow, d"
-          "$mod&SHIFT, H, movewindow, l"
-          "$mod&SHIFT, L, movewindow, r"
-          "$mod&SHIFT, K, movewindow, u"
-          "$mod&SHIFT, J, movewindow, d"
+          "$mod+SHIFT, code:113, movewindow, l"
+          "$mod+SHIFT, code:114, movewindow, r"
+          "$mod+SHIFT, code:111, movewindow, u"
+          "$mod+SHIFT, code:116, movewindow, d"
+          "$mod+SHIFT, H, movewindow, l"
+          "$mod+SHIFT, L, movewindow, r"
+          "$mod+SHIFT, K, movewindow, u"
+          "$mod+SHIFT, J, movewindow, d"
 
-          "CTRL ALT, L, exec, hyprlock"
+          "CTRL+ALT, L, exec, hyprlock"
           ", switch:on:Lid Switch, exec, hyprlock"
           "$mod, R, submap, Resize"
-          "$mod&SHIFT, code:201, exec, ghostty ~/nix-files"
+          "mod+SHIFT, code:201, spawn, ${pkgs.${terminal}}/bin/${terminal} --working-directory=~/nix-files || ${pkgs.${terminal}}/bin/${terminal} ~/nix-files/"
 
           ", XF86AudioMute, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle"
           ", XF86AudioMicMute, exec, ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle"
@@ -96,17 +97,17 @@ in
         ));
         binde = [
           # Arrows and vim keybinds for switching workspaces incrementally
-          "$mod&CTRL, code:113, workspace, -1"
-          "$mod&CTRL, code:114, workspace, +1"
-          "$mod&CTRL, H, workspace, -1"
-          "$mod&CTRL, L, workspace, +1"
-          "$mod&CTRL&SHIFT, code:113, movetoworkspace, -1"
-          "$mod&CTRL&SHIFT, code:114, movetoworkspace, +1"
-          "$mod&CTRL&SHIFT, H, movetoworkspace, -1"
-          "$mod&CTRL&SHIFT, L, movetoworkspace, +1"
+          "$mod+CTRL, code:113, workspace, -1"
+          "$mod+CTRL, code:114, workspace, +1"
+          "$mod+CTRL, H, workspace, -1"
+          "$mod+CTRL, L, workspace, +1"
+          "$mod+CTRL+SHIFT, code:113, movetoworkspace, -1"
+          "$mod+CTRL+SHIFT, code:114, movetoworkspace, +1"
+          "$mod+CTRL+SHIFT, H, movetoworkspace, -1"
+          "$mod+CTRL+SHIFT, L, movetoworkspace, +1"
 
           "$mod, Q, killactive"
-          "$mod&SHIFT, Q, forcekillactive"
+          "$mod+SHIFT, Q, forcekillactive"
 
           ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%+ && ${pkgs.libnotify}/bin/notify-send -t 200 Brightness \"$(${pkgs.brightnessctl}/bin/brightnessctl | awk '{print $4}' | head -n 2 | tail -n 1 | sed 's/[(,)]//g')\""
           ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%- && ${pkgs.libnotify}/bin/notify-send -t 200 Brightness \"$(${pkgs.brightnessctl}/bin/brightnessctl | awk '{print $4}' | head -n 2 | tail -n 1 | sed 's/[(,)]//g')\""

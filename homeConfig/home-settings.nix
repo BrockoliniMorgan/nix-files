@@ -3,9 +3,15 @@
   pkgs,
   allowUnfree,
   username,
+  osConfig,
+  config,
   ...
 }:
+let
+  terminal = (osConfig.terminal or config.terminal);
+in
 {
+  programs.${terminal}.enable = true;
   home = {
     inherit username;
     homeDirectory = "/home/${username}";

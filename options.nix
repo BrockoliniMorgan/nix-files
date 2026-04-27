@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 {
   options = {
     is_laptop = lib.mkEnableOption "is_laptop";
@@ -9,6 +9,12 @@
       default = ", preferred, auto, 1";
       example = "DP-3, 2560x1440@143.91, 0x0, 1";
       description = "Default monitor config for hyprland";
+    };
+    terminal = lib.mkOption {
+      type = lib.types.str;
+      default = "kitty";
+      example = "foot";
+      description = "Which terminal to use by default";
     };
   };
 }
