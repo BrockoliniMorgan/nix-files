@@ -19,6 +19,27 @@ in
       settings =
         let
           mod = "SUPER";
+          changeBrightness =
+            sign:
+            pkgs.writeShellScript "change_brightness" ''
+              ${pkgs.brightnessctl}/bin/brightnessctl set 5%${sign}
+              BRIGHTNESSCTL_MSG=$(${pkgs.brightnessctl}/bin/brightnessctl)
+              FOURTH_COL=$(echo "$BRIGHTNESSCTL_MSG" | awk '{print $4}')
+              BRIGHTNESS_BRACKETS=$(echo "$FOURTH_COL" | head -n 2 | tail -n 1)
+              BRIGHTNESS_FORMATTED=$(echo "$BRIGHTNESS_BRACKETS" | sed 's/[(,)]//g')
+              ${pkgs.libnotify}/bin/notify-send -t 200 'Brightness' "$BRIGHTNESS_FORMATTED"
+            '';
+
+          # TODO: Set a limit on volume
+          changeVolume =
+            sign:
+            pkgs.writeShellScript "change_volume" ''
+              ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ ${sign}5% 
+              PACTL_MSG=$(${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@)
+              VOLUME_SPLIT=$(echo "$PACTL_MSG" | grep -o -P "/ .*?(?>%)" - | grep -o -P "[0-9]{1,3}(?>%)" -)
+              VOLUME_TOGETHER=$(echo "$VOLUME_SPLIT" | tr '\n' ' ')
+              ${pkgs.libnotify}/bin/notify-send -t 200 'Audio' "$VOLUME_TOGETHER"
+            '';
         in
         {
           bind = [
@@ -64,7 +85,7 @@ in
             "NONE, XF86AudioPrev, spawn, ${pkgs.playerctl}/bin/playerctl previous"
             "NONE, XF86AudioStop, spawn, ${pkgs.playerctl}/bin/playerctl stop"
             "NONE, XF86SelectiveScreenshot, spawn, ${pkgs.screenshot}/bin/screenshot"
-            "NONE, Print, spawn, ${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy"
+            "NONE, Print, spawn, ${pkgs.printscreen}"
 
             # Arrows and vim keybinds for switching workspaces incrementally
             "${mod}+CTRL, Up, viewtoleft_have_client,"
@@ -84,12 +105,11 @@ in
             "${mod}, minus, set_proportion, 0.6"
             "${mod}, equal, set_proportion, 1.0"
 
-            "NONE, XF86MonBrightnessUp, spawn, ${pkgs.brightnessctl}/bin/brightnessctl set 5%+ && ${pkgs.libnotify}/bin/notify-send -t 200 Brightness \"$(${pkgs.brightnessctl}/bin/brightnessctl | awk '{print $4}' | head -n 2 | tail -n 1 | sed 's/[(,)]//g')\""
-            "NONE, XF86MonBrightnessDown, spawn, ${pkgs.brightnessctl}/bin/brightnessctl set 5%- && ${pkgs.libnotify}/bin/notify-send -t 200 Brightness \"$(${pkgs.brightnessctl}/bin/brightnessctl | awk '{print $4}' | head -n 2 | tail -n 1 | sed 's/[(,)]//g')\""
+            "NONE, XF86MonBrightnessUp, spawn, ${changeBrightness "+"}"
+            "NONE, XF86MonBrightnessDown, spawn, ${changeBrightness "-"}"
 
-            # TODO: Set a limit on volume - probably requires making a shell script
-            "NONE, XF86AudioLowerVolume, spawn, ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5% && ${pkgs.libnotify}/bin/notify-send -t 200 Audio \"$(${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@ | grep -o -P \"/ .*?(?>%)\" - | grep -o -P \"[0-9]{1,3}(?>%)\" - | tr '\\n' ' ')\""
-            "NONE, XF86AudioRaiseVolume, spawn, ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5% && ${pkgs.libnotify}/bin/notify-send -t 200 Audio \"$(${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@ | grep -o -P \"/ .*?(?>%)\" - | grep -o -P \"[0-9]{1,3}(?>%)\" - | tr '\\n' ' ')\""
+            "NONE, XF86AudioRaiseVolume, spawn, ${changeVolume "+"}"
+            "NONE, XF86AudioLowerVolume, spawn, ${changeVolume "-"}"
           ]
           # Workspaces 1-9 - keys 1-9
           ++ (builtins.concatLists (

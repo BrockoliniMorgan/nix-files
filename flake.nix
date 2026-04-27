@@ -35,6 +35,8 @@
   outputs =
     {
       home-manager,
+      mango,
+      nvf,
       nixpkgs,
       treefmt-nix,
       flake-utils,
@@ -128,6 +130,7 @@
               additionalOptions
               ./NixOSConfig # All the system-level configuration
               home-manager.nixosModules.home-manager # Add the home manager option set
+              mango.nixosModules.mango # Add the mango option set
               (
                 # Home manager configuration
                 { specialArgs, ... }:
