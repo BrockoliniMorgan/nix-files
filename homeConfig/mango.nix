@@ -107,9 +107,6 @@ in
             "${mod}+SHIFT, Q, killclient, force"
             "${mod}, M, switch_layout"
             "${mod}, A, switch_proportion_preset"
-            "${mod}, 0, set_proportion, 0.4"
-            "${mod}, minus, set_proportion, 0.6"
-            "${mod}, equal, set_proportion, 1.0"
 
             "NONE, XF86MonBrightnessUp, spawn, ${changeBrightness "+"}"
             "NONE, XF86MonBrightnessDown, spawn, ${changeBrightness "-"}"
@@ -117,6 +114,7 @@ in
             "NONE, XF86AudioRaiseVolume, spawn, ${changeVolume "+"}"
             "NONE, XF86AudioLowerVolume, spawn, ${changeVolume "-"}"
           ]
+
           # Workspaces 1-9 - keys 1-9
           ++ (builtins.concatLists (
             builtins.genList (
@@ -129,7 +127,21 @@ in
                 "${mod}+SHIFT, code:${toString (i + 10)}, tag, ${toString ws}"
               ]
             ) 9
+          ))
+
+          # Resize windows - keys 1-0
+          ++ (builtins.concatLists (
+            builtins.genList (
+              i:
+              let
+                size = (i + 1) / 10.0;
+              in
+              [
+                "CTRL+ALT, code:${toString (i + 10)}, set_proportion, ${lib.strings.floatToString size}"
+              ]
+            ) 10
           ));
+
           # Default layout = scroller
           tagrule = builtins.concatLists (
             builtins.genList (
