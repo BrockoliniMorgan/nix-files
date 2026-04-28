@@ -30,7 +30,6 @@ in
               ${pkgs.libnotify}/bin/notify-send -t 200 'Brightness' "$BRIGHTNESS_FORMATTED"
             '';
 
-          # TODO: Set a limit on volume
           changeVolume =
             sign:
             pkgs.writeShellScript "change_volume" ''
@@ -38,7 +37,14 @@ in
               PACTL_MSG=$(${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@)
               VOLUME_SPLIT=$(echo "$PACTL_MSG" | grep -o -P "/ .*?(?>%)" - | grep -o -P "[0-9]{1,3}(?>%)" -)
               VOLUME_TOGETHER=$(echo "$VOLUME_SPLIT" | tr '\n' ' ')
-              ${pkgs.libnotify}/bin/notify-send -t 200 'Audio' "$VOLUME_TOGETHER"
+              VOLUME_NO_PERCENT=($(echo "$VOLUME_TOGETHER" | sed 's/\%//g'))
+
+              if [ ''${VOLUME_NO_PERCENT[0]} -gt 100 ] || [ ''${VOLUME_NO_PERCENT[1]} -gt 100 ]; then
+                ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5% 
+                ${pkgs.libnotify}/bin/notify-send -t 200 'Audio' "MAX"
+              else
+                ${pkgs.libnotify}/bin/notify-send -t 200 'Audio' "$VOLUME_TOGETHER"
+              fi
             '';
         in
         {
