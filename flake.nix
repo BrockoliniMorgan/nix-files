@@ -80,7 +80,14 @@
           additionalOptions = {
             is_laptop = true;
             specialisation.gnome.configuration.enable_gnome = true;
-            hyprland_display = "eDP-1, 1920x1080@60.01, 0x0, 1";
+          };
+          additionalHomeOptions = {
+            display = {
+              name = "eDP-1";
+              width = 1920;
+              height = 1080;
+              frequency = 60.01;
+            };
             terminal = "foot";
           };
         }
@@ -91,7 +98,15 @@
           additionalOptions = {
             is_laptop = true;
             specialisation.gnome.configuration.enable_gnome = true;
-            hyprland_display = "eDP-1, 1920x1200@120, 0x0, 1";
+          };
+          additionalHomeOptions = {
+            display = {
+              name = "eDP-1";
+              width = 1920;
+              height = 1200;
+              frequency = 120;
+            };
+            secondary_display = "HDMI-A-1";
             terminal = "foot";
           };
         }
@@ -99,9 +114,14 @@
           hostName = "${username}-desktop";
           system = "x86_64-linux";
           username = defaultUsername;
-          additionalOptions = {
-            has_amd_gpu = true;
-            hyprland_display = "DP-3, 2560x1440@143.91, 0x0, 1";
+          additionalOptions.has_amd_gpu = true;
+          additionalHomeOptions = {
+            display = {
+              name = "DP-3";
+              width = 2560;
+              height = 1440;
+              frequency = 143.91;
+            };
             terminal = "foot";
           };
         }
@@ -112,7 +132,7 @@
           system,
           username ? defaultUsername,
           additionalOptions ? { },
-          ...
+          additionalHomeOptions ? { },
         }:
         {
           ${hostName} = lib.nixosSystem {
@@ -155,6 +175,7 @@
                 username
                 hostName
                 inputs
+                additionalHomeOptions
                 ;
             };
           };
@@ -164,7 +185,7 @@
           hostName,
           system,
           username ? defaultUsername,
-          additionalOptions ? { },
+          additionalHomeOptions ? { },
           ...
         }:
         {
@@ -178,7 +199,6 @@
               };
             };
             modules = [
-              additionalOptions
               ./options.nix
               ./homeConfig # All the home-level configuration
             ];
@@ -189,6 +209,7 @@
                 username
                 hostName
                 inputs
+                additionalHomeOptions
                 ;
             };
           };
@@ -229,7 +250,6 @@
                     with pkgs;
                     [
                       git
-                      nix
                       hostname
                     ]
                   )
@@ -261,7 +281,7 @@
         formatter = treefmtEval.config.build.wrapper; # Formatter, run by nix fmt
         packages = {
           nvim =
-            (inputs.nvf.lib.neovimConfiguration {
+            (nvf.lib.neovimConfiguration {
               inherit pkgs;
               modules = [ { config.vim = import ./homeConfig/neovim.nix { inherit pkgs; }; } ];
             }).neovim;

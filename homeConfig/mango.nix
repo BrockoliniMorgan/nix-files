@@ -7,7 +7,7 @@
 }:
 let
   is_laptop = (osConfig.is_laptop or config.is_laptop);
-  terminal = (osConfig.terminal or config.terminal);
+  inherit (config) terminal;
 in
 {
   wayland.windowManager.mango =
@@ -19,33 +19,6 @@ in
       settings =
         let
           mod = "SUPER";
-          changeBrightness =
-            sign:
-            pkgs.writeShellScript "change_brightness" ''
-              ${pkgs.brightnessctl}/bin/brightnessctl set 5%${sign}
-              BRIGHTNESSCTL_MSG=$(${pkgs.brightnessctl}/bin/brightnessctl)
-              FOURTH_COL=$(echo "$BRIGHTNESSCTL_MSG" | awk '{print $4}')
-              BRIGHTNESS_BRACKETS=$(echo "$FOURTH_COL" | head -n 2 | tail -n 1)
-              BRIGHTNESS_FORMATTED=$(echo "$BRIGHTNESS_BRACKETS" | sed 's/[(,)]//g')
-              ${pkgs.libnotify}/bin/notify-send -t 200 'Brightness' "$BRIGHTNESS_FORMATTED"
-            '';
-
-          changeVolume =
-            sign:
-            pkgs.writeShellScript "change_volume" ''
-              ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ ${sign}5% 
-              PACTL_MSG=$(${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@)
-              VOLUME_SPLIT=$(echo "$PACTL_MSG" | grep -o -P "/ .*?(?>%)" - | grep -o -P "[0-9]{1,3}(?>%)" -)
-              VOLUME_TOGETHER=$(echo "$VOLUME_SPLIT" | tr '\n' ' ')
-              VOLUME_NO_PERCENT=($(echo "$VOLUME_TOGETHER" | sed 's/\%//g'))
-
-              if [ ''${VOLUME_NO_PERCENT[0]} -gt 100 ] || [ ''${VOLUME_NO_PERCENT[1]} -gt 100 ]; then
-                ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5% 
-                ${pkgs.libnotify}/bin/notify-send -t 200 'Audio' "MAX"
-              else
-                ${pkgs.libnotify}/bin/notify-send -t 200 'Audio' "$VOLUME_TOGETHER"
-              fi
-            '';
         in
         {
           bind = [
@@ -108,11 +81,10 @@ in
             "${mod}, M, switch_layout"
             "${mod}, A, switch_proportion_preset"
 
-            "NONE, XF86MonBrightnessUp, spawn, ${changeBrightness "+"}"
-            "NONE, XF86MonBrightnessDown, spawn, ${changeBrightness "-"}"
-
-            "NONE, XF86AudioRaiseVolume, spawn, ${changeVolume "+"}"
-            "NONE, XF86AudioLowerVolume, spawn, ${changeVolume "-"}"
+            "NONE, XF86MonBrightnessUp, spawn, ${pkgs.increaseBrightness}"
+            "NONE, XF86MonBrightnessDown, spawn, ${pkgs.decreaseBrightness}"
+            "NONE, XF86AudioRaiseVolume, spawn, ${pkgs.increaseVolume}"
+            "NONE, XF86AudioLowerVolume, spawn, ${pkgs.decreaseVolume}"
           ]
 
           # Workspaces 1-9 - keys 1-9
@@ -187,7 +159,7 @@ in
             focus = 200;
           };
           xkb_rules.options = [
-            "caps:escape"
+            "caps:hyper"
           ];
           border_radius = 8;
           unfocused_opacity = 0.9;

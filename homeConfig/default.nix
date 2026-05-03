@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  additionalHomeOptions,
+  ...
+}:
 {
   imports = [
     ./hyprland-ecosystem.nix
@@ -10,6 +15,7 @@
     ./terminals.nix
     ./qutebrowser.nix
     ./gnome.nix
+    ./home-options.nix
     inputs.nvf.homeManagerModules.default
     inputs.mango.hmModules.mango
     {
@@ -21,3 +27,4 @@
     }
   ];
 }
+// additionalHomeOptions

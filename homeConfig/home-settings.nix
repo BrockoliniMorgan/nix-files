@@ -3,12 +3,11 @@
   pkgs,
   allowUnfree,
   username,
-  osConfig,
   config,
   ...
 }:
 let
-  terminal = (osConfig.terminal or config.terminal);
+  inherit (config) terminal;
 in
 {
   programs.${terminal}.enable = true;

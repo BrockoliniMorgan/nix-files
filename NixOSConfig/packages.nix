@@ -4,15 +4,12 @@
     systemPackages = (
       with pkgs;
       [
-        waybar
         bluez # Bluetooth
         brightnessctl
         btop
         curl
         dunst # Notifications
         ethtool
-        git
-        gh
         home-manager
         libnotify # Notify-send
         lm_sensors
