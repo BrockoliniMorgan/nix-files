@@ -1,13 +1,7 @@
 { ... }:
 {
   programs = {
-    bash = {
-      enable = true;
-      initExtra = ''
-        eval "$(direnv hook bash)"
-      '';
-    };
-
+    bash.enable = true;
     direnv = {
       enable = true;
       enableBashIntegration = true;
