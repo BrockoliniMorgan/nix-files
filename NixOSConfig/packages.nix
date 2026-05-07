@@ -10,6 +10,7 @@
         curl
         dunst # Notifications
         ethtool
+        file
         home-manager
         libnotify # Notify-send
         lm_sensors

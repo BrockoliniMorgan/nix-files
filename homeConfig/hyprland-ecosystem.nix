@@ -74,7 +74,7 @@ in
             "CTRL+ALT, L, exec, hyprlock"
             ", switch:on:Lid Switch, exec, hyprlock"
             "${mod}, R, submap, Resize"
-            "${mod}+SHIFT, code:201, spawn, ${pkgs.${terminal}}/bin/${terminal} --working-directory=~/nix-files || ${pkgs.${terminal}}/bin/${terminal} ~/nix-files/"
+            "${mod}+SHIFT, code:201, exec, ${pkgs.${terminal}}/bin/${terminal} --working-directory=~/nix-files || ${pkgs.${terminal}}/bin/${terminal} ~/nix-files/"
 
             ", XF86AudioMute, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle"
             ", XF86AudioMicMute, exec, ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle"
