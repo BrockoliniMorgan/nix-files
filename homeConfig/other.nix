@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 {
   gtk = {
     enable = true;
@@ -15,7 +18,7 @@
 
   xdg.portal = {
     enable = true;
-    configPackages = with pkgs; [
+    extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
       xdg-desktop-portal-hyprland
     ];

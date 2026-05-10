@@ -62,7 +62,7 @@
         (import ./overlays/unstable.nix (
           inputs # All of the flake inputs
           // {
-            inherit # TODO: clean this up. It looks like it could be done better
+            inherit
               system
               allowUnfree
               allowUnfreePredicate

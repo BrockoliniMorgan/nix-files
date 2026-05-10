@@ -1,4 +1,12 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  inherit (config) enable_gnome;
+in
 {
   environment = {
     systemPackages = (
@@ -32,8 +40,10 @@
 
   programs = {
     steam.enable = true;
-    hyprland.enable = true;
     ssh.startAgent = true;
+  }
+  // lib.mkIf (!enable_gnome) {
+    hyprland.enable = true;
     mango.enable = true;
   };
 }
