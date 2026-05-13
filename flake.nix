@@ -70,6 +70,7 @@
           }
         ))
         (import ./overlays/screenshot.nix)
+        (import ./overlays/dwl.nix)
       ];
       # All of my (current) systems
       systems = [

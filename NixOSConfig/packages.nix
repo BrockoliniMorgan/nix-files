@@ -45,5 +45,6 @@ in
   // lib.mkIf (!enable_gnome) {
     hyprland.enable = true;
     mango.enable = true;
+    dwl.enable = true;
   };
 }

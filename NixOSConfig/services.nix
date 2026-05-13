@@ -27,13 +27,16 @@
     # Enable touchpad support (enabled default in most desktopManager).
     libinput.enable = true;
 
-    displayManager.ly = {
-      enable = true;
-      settings = {
-        bigclock = "en";
-        brightness_down_cmd = "${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
-        brightness_up_cmd = "${pkgs.brightnessctl}/bin/brightnessctl set 5%+";
-        battery_id = lib.mkIf config.is_laptop "BAT0";
+    displayManager = {
+      sessionPackages = with pkgs; [ dwl ];
+      ly = {
+        enable = true;
+        settings = {
+          bigclock = "en";
+          brightness_down_cmd = "${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
+          brightness_up_cmd = "${pkgs.brightnessctl}/bin/brightnessctl set 5%+";
+          battery_id = lib.mkIf config.is_laptop "BAT0";
+        };
       };
     };
     # Enable the OpenSSH daemon.
