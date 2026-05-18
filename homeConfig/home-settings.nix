@@ -50,6 +50,8 @@ in
       hmsf = "home-manager switch --flake ~/nix-files/ -b bak";
       ngc = "sudo nix-collect-garbage --delete-older-than 7d && nix-collect-garbage --delete-older-than 7d && sudo /run/current-system/bin/switch-to-configuration boot";
       ngca = "sudo nix-collect-garbage -d && nix-collect-garbage -d && sudo /run/current-system/bin/switch-to-configuration boot";
+      nfu = "nix flake update";
+      dr = "direnv reload";
     };
   };
 }
