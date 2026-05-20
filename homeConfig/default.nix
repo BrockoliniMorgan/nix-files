@@ -22,7 +22,7 @@
       programs.nvf = {
         enable = true;
         defaultEditor = true;
-        settings.vim = import ./neovim.nix { inherit pkgs; };
+        settings.vim = import ./neovim { inherit pkgs; };
       };
     }
   ];

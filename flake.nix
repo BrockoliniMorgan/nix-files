@@ -40,6 +40,7 @@
       nixpkgs,
       treefmt-nix,
       flake-utils,
+      self,
       ...
     }@inputs:
     let
@@ -281,10 +282,11 @@
 
         formatter = treefmtEval.config.build.wrapper; # Formatter, run by nix fmt
         packages = {
+          default = self.packages.${system}.nvim;
           nvim =
             (nvf.lib.neovimConfiguration {
               inherit pkgs;
-              modules = [ { config.vim = import ./homeConfig/neovim.nix { inherit pkgs; }; } ];
+              modules = [ { config.vim = import ./homeConfig/neovim/minimal.nix { inherit pkgs; }; } ];
             }).neovim;
           inherit regenerateConfig;
         };

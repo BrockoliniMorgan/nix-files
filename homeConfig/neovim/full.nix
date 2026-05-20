@@ -1,25 +1,9 @@
-{ pkgs, ... }:
+{ ... }:
 {
   # NVF config
-  vimAlias = true;
-  syntaxHighlighting = true;
   bell = "visual"; # No sounds
-  telescope = {
-    enable = true;
-    extensions = [
-      {
-        name = "fzf";
-        packages = [ pkgs.vimPlugins.telescope-fzf-native-nvim ];
-        setup.fzf.fuzzy = true;
-      }
-    ];
-  };
   git.enable = true;
-  options = {
-    wrap = false;
-    autoindent = true;
-  };
-  globals.mapleader = " ";
+  options.autoindent = true;
   filetree.nvimTree = {
     enable = true;
     setupOpts = {
@@ -59,18 +43,10 @@
   };
   autopairs.nvim-autopairs.enable = true;
   utility = {
-    direnv.enable = true; # Direnv when entering directories
     icon-picker.enable = true; # Pretty icons
-    sleuth.enable = true; # Figures out the proper indenting for tab automatically
     smart-splits = {
-      # Moving around in windows using leader+w+[hjkl] and resizing using leader+w+[HJKL]
-      enable = true;
+      # Resizing windows using leader+w+[HJKL]
       keymaps = {
-        move_cursor_down = "<leader>wj";
-        move_cursor_up = "<leader>wk";
-        move_cursor_left = "<leader>wh";
-        move_cursor_right = "<leader>wl";
-
         # TODO: Reconfigure this - it's kinda annoying
         resize_down = "<leader>wJ";
         resize_up = "<leader>wK";
@@ -99,8 +75,10 @@
     bash.enable = true;
     css.enable = true;
     json.enable = true;
+    markdown.enable = true;
     svelte.enable = true;
     yaml.enable = true;
+    tex.enable = true;
     clang = {
       enable = true;
       cHeader = true;
