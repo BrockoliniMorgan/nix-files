@@ -1,6 +1,7 @@
 { ... }:
 {
   # NVF config
+  viAlias = false;
   bell = "visual"; # No sounds
   git.enable = true;
   options.autoindent = true;
