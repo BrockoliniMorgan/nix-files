@@ -11,7 +11,6 @@
 
 {
   imports = [
-    (modulesPath + "/hardware/cpu/intel-npu.nix")
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 

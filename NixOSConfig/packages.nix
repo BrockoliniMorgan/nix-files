@@ -12,24 +12,22 @@ in
     systemPackages = (
       with pkgs;
       [
+        # keep-sorted start
         bluez # Bluetooth
         brightnessctl
         btop
         curl
-        dunst # Notifications
-        ethtool
+        dunst # Notification daemon
         file
         home-manager
         libnotify # Notify-send
-        lm_sensors
         neovim
         pavucontrol # Audio control
-        sysstat
-        usbutils
+        screenshot
         vivaldi
         wget
-        wirelesstools
         yazi # CLI file browser
+        # keep-sorted end
       ]
     );
   };

@@ -34,13 +34,15 @@
 
   outputs =
     {
+      # keep-sorted start
+      flake-utils,
       home-manager,
       mango,
-      nvf,
       nixpkgs,
-      treefmt-nix,
-      flake-utils,
+      nvf,
       self,
+      treefmt-nix,
+      # keep-sorted end
       ...
     }@inputs:
     let
@@ -49,11 +51,13 @@
       allowUnfreePredicate = # Same as above
         pkg:
         builtins.elem (lib.getName pkg) [
+          # keep-sorted start
           "discord" # TODO: Get rid of discord, spotify, and vivaldi
           "spotify"
           "steam"
           "steam-unwrapped"
           "vivaldi"
+          # keep-sorted end
         ];
       inherit (nixpkgs) lib;
 
