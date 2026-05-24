@@ -282,6 +282,22 @@
                 regenerateConfig
               ];
           };
+          jupyter = pkgs.mkShell {
+            name = "jupyter-devShell";
+            packages = with pkgs; [
+              (nvf.lib.neovimConfiguration {
+                inherit pkgs;
+                modules = [
+                  {
+                    config.vim =
+                      import ./homeConfig/neovim { inherit pkgs; }
+                      // import ./homeConfig/neovim/jupyter.nix { inherit pkgs; };
+                  }
+                ];
+              }).neovim
+              python3Packages.jupytext
+            ];
+          };
         };
 
         formatter = treefmtEval.config.build.wrapper; # Formatter, run by nix fmt
