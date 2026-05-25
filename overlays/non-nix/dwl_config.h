@@ -4,6 +4,7 @@
                         ((hex >> 8) & 0xFF) / 255.0f, \
                         (hex & 0xFF) / 255.0f }
 /* appearance */
+static const char* startup_script	   = "waybar & disown && swaybg -i /home/brock/nix-files/homeConfig/non-nix/Background.png";
 static const int sloppyfocus               = 1;  /* focus follows mouse */
 static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will disable idle tracking even if it's surface isn't visible  */
 static const int enablegaps                = 1;  /* 1 means gaps are enabled */
@@ -69,7 +70,7 @@ static const int repeat_delay = 300;
 static const int tap_to_click = 1;
 static const int tap_and_drag = 1;
 static const int drag_lock = 1;
-static const int natural_scrolling = 0;
+static const int natural_scrolling = 1;
 static const int disable_while_typing = 0;
 static const int left_handed = 0;
 static const int middle_button_emulation = 1;

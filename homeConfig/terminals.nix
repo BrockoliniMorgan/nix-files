@@ -39,6 +39,9 @@
           bright6 = "8ec07c";
           bright7 = "ebdbb2";
         };
+        security = {
+          osc52 = "enabled";
+        };
       };
     };
 

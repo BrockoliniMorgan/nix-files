@@ -303,6 +303,9 @@
         formatter = treefmtEval.config.build.wrapper; # Formatter, run by nix fmt
         packages = {
           default = self.packages.${system}.nvim;
+          pkgs = pkgs.runCommand "pkgs" { passthru = pkgs; } ''
+            touch $out
+          '';
           nvim =
             (nvf.lib.neovimConfiguration {
               inherit pkgs;
