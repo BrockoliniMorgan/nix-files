@@ -29,6 +29,13 @@
         flake-parts.follows = "nvf/flake-parts";
       };
     };
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
   };
 
   outputs =
@@ -41,6 +48,7 @@
       nvf,
       self,
       treefmt-nix,
+      impermanence,
       # keep-sorted end
       ...
     }@inputs:
@@ -159,6 +167,7 @@
               ./NixOSConfig # All the system-level configuration
               home-manager.nixosModules.home-manager # Add the home manager option set
               mango.nixosModules.mango # Add the mango option set
+              impermanence.nixosModules.impermanence
               (
                 # Home manager configuration
                 { specialArgs, ... }:

@@ -7,6 +7,7 @@
     ./packages.nix
     ./amd_gpu.nix
     ./gnome.nix
+    ./persistence.nix
     ./hardware-configuration
   ];
 }
