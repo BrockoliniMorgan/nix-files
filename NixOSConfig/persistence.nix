@@ -3,10 +3,10 @@
   environment.persistence."/persistent" = {
     directories = [
       "/var/log"
-      "/var/lib/bluetooth/"
+      "/var/lib/bluetooth"
       "/var/lib/nixos"
-      "/var/lib/systemd/coredump/"
-      "/etc/NetworkManager/system-connections/"
+      "/var/lib/systemd/coredump"
+      "/etc/NetworkManager/system-connections"
     ];
     files = [
       "/etc/machine-id"
@@ -17,6 +17,7 @@
         "Documents"
         ".local/share/direnv"
         ".local/share/Steam"
+        ".factorio"
         ".config/vivaldi"
         ".ssh"
       ];
