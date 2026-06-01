@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 {
@@ -13,6 +14,7 @@
       name = "Iosevka Nerd Font";
       size = 10.5;
     };
+    gtk4.theme = config.gtk.theme;
     colorScheme = "dark";
   };
 

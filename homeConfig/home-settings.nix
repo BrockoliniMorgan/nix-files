@@ -24,7 +24,6 @@ in
         evince # Gnome document viewer
         kicad-unstable-small
         gnome-calculator
-        libreoffice-fresh
         neovim
         spotify
       ]

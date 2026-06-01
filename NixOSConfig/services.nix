@@ -28,7 +28,7 @@
     libinput.enable = true;
 
     displayManager = {
-      sessionPackages = with pkgs; [ dwl ];
+      # sessionPackages = with pkgs; [ dwl ];
       ly = {
         enable = true;
         settings = {

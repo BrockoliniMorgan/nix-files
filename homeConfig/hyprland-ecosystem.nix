@@ -34,6 +34,7 @@ in
       backgroundPhotoDir = ./non-nix/Background.png;
     in
     {
+      configType = "hyprlang";
       portalPackage = pkgs.xdg-desktop-portal-gtk;
       systemd.variables = [ "--all" ];
       enable = true;
