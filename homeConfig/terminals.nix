@@ -19,7 +19,7 @@
         main = {
           font = "Iosevka Nerd Font:size=10.5";
         };
-        colors = {
+        colors-dark = {
           background = "282828";
           foreground = "ebdbb2";
           regular0 = "282828";
