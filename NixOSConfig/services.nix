@@ -9,6 +9,7 @@
     # Enable CUPS to print documents.
     printing.enable = true;
 
+    speechd.enable = lib.mkForce false;
     # Enable sound with pipewire.
     pulseaudio.enable = false;
     pipewire = {

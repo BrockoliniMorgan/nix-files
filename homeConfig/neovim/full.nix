@@ -5,16 +5,6 @@
   bell = "visual"; # No sounds
   git.enable = true;
   options.autoindent = true;
-  filetree.nvimTree = {
-    enable = true;
-    setupOpts = {
-      actions.open_file.quit_on_open = true;
-      git.enable = true;
-      hijack_cursor = true;
-      hijack_unnamed_buffer_when_opening = true;
-      modified.enable = true;
-    };
-  };
   lsp = {
     # Language server protocol support
     enable = true; # Automatically set lsp.enable = true for all enabled languages

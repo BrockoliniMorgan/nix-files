@@ -24,6 +24,7 @@ in
         neovim
         pavucontrol # Audio control
         screenshot
+        tree
         vivaldi
         wget
         yazi # CLI file browser
