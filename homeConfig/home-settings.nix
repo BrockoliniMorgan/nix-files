@@ -17,19 +17,14 @@ in
 
     stateVersion = "25.11";
 
-    packages =
-      with pkgs;
-      [
-        discord
-        evince # Gnome document viewer
-        kicad-unstable-small
-        gnome-calculator
-        neovim
-        spotify
-      ]
-      ++ (with unstable; [
-        bambu-studio
-      ]);
+    packages = with pkgs; [
+      discord
+      evince # Gnome document viewer
+      kicad-unstable-small
+      gnome-calculator
+      neovim
+      spotify
+    ];
 
     file = {
       # To allow nix-shell -p to access unfree packages without having to mess with environment variables

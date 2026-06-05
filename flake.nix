@@ -2,12 +2,11 @@
   description = "My NixOS config";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -63,8 +62,8 @@
 
       # Need this to be a function so it can be architecture-independent
       mkOverlays = system: [
-        # Allow accessing pkgs.unstable or pkgs.master for really new stuff
-        (import ./overlays/unstable.nix (
+        # Allow accessing pkgs.master for really new stuff
+        (import ./overlays/master.nix (
           inputs # All of the flake inputs
           // {
             inherit
