@@ -12,21 +12,6 @@ in
 {
   wayland.windowManager.hyprland =
     let
-      workspaceNames = [
-        "Browser" # 1
-        "Terminal" # 2
-        "3" # 3
-        "4" # 4
-        "5" # 5
-        "6" # 6
-        "7" # 7
-        "8" # 8
-        "9" # 9
-        "10" # 10
-        "11" # 11
-        "Discord" # 12
-      ];
-
       # Since paths are first-class citizens in nix, this is
       # automatically converted to an absolute path at runtime
       # so we don't need to specify the absolute path when
@@ -127,9 +112,6 @@ in
             blur.enabled = false;
             shadow.enabled = false;
           };
-          misc = {
-            vfr = true;
-          };
           input = {
             kb_options = [
               "caps:hyper"
@@ -155,11 +137,11 @@ in
           ];
           windowrule = [
             # Transparent windows (0.9) when not focused, rounded corners, all window classes (REGEX)
-            "opacity 1.0 0.9, rounding 10, class:(?s).*"
+            "match:class .*, opacity 1.0 0.9, rounding 10"
           ];
           workspace = [
           ]
-          # The default window gaps are horrible - make them smaller, assign the default names as in workspaceNames
+          # The default window gaps are horrible - make them smaller
           ++ (builtins.concatLists (
             builtins.genList (
               i:
@@ -167,9 +149,9 @@ in
                 ws = i + 1;
               in
               [
-                "${toString ws}, gapsout:4, gapsin:4, defaultName:${builtins.elemAt workspaceNames i}"
+                "${toString ws}, gapsout:4, gapsin:4"
               ]
-            ) (builtins.length workspaceNames)
+            ) 12
           ));
           exec-once = [
             # Anime girl background :)
