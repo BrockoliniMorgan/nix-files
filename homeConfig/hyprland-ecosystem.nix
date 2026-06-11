@@ -108,6 +108,7 @@ in
             "3, horizontal, workspace"
             "3, vertical, special, dumpWorkspace"
           ];
+          ecosystem.no_update_news = true;
           decoration = {
             blur.enabled = false;
             shadow.enabled = false;
@@ -127,7 +128,6 @@ in
           debug.disable_logs = false;
           # Set all unspecified monitors to their preferred resolution,
           # on the left of the others, with a scale of 1
-          # The 'display' option is set in the flake.nix per-machine
           monitor = [
             ", preferred, auto-left, 1"
           ];
