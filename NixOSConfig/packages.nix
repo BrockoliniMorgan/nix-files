@@ -24,6 +24,7 @@ in
         neovim
         pavucontrol # Audio control
         screenshot
+        steam
         tree
         vivaldi
         wget
