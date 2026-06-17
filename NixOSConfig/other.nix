@@ -3,6 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
+  pkgs,
   hostName,
   username,
   lib,
@@ -60,7 +61,16 @@
     };
   };
 
-  security.rtkit.enable = true;
+  security = {
+    # Allow btop to show GPUs
+    wrappers.btop = {
+      source = "${pkgs.btop}/bin/btop";
+      capabilities = "cap_perfmon=+ep cap_dac_read_search=+ep";
+      owner = "root";
+      group = "root";
+    };
+    rtkit.enable = true;
+  };
   hardware = {
     bluetooth.enable = true;
     graphics = {
