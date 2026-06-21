@@ -45,6 +45,7 @@ in
       ngca = "sudo nix-collect-garbage -d && nix-collect-garbage -d && sudo /run/current-system/bin/switch-to-configuration boot";
       nfu = "nix flake update";
       dr = "direnv reload";
+      gs = "git status";
     };
   };
 }
