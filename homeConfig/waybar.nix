@@ -42,6 +42,9 @@
         cpu = {
           format = "  {usage}%";
         };
+        "ext/workspaces" = {
+          sort-by-name = true;
+        };
       };
     };
     style = ./non-nix/style.css;
