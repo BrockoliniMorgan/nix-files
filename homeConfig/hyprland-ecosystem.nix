@@ -137,7 +137,7 @@ in
           ];
           windowrule = [
             # Transparent windows (0.9) when not focused, rounded corners, all window classes (REGEX)
-            "match:class .*, opacity 1.0 0.9, rounding 10"
+            "match:class .*, opacity 1.0 0.9, rounding 4"
           ];
           workspace = [
           ]

@@ -223,6 +223,10 @@
     {
       nixosConfigurations = builtins.foldl' (acc: new: acc // new) { } (lib.map createSystem systems);
       homeConfigurations = builtins.foldl' (acc: new: acc // new) { } (lib.map createHome systems);
+      templates = {
+        path = ./templates/Workspace_Template;
+        description = "Development template";
+      };
     }
     // flake-utils.lib.eachDefaultSystem (
       system:
