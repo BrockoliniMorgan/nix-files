@@ -71,7 +71,11 @@
     };
     rtkit.enable = true;
   };
+
+  virtualisation.docker.enable = true;
+
   hardware = {
+    enableRedistributableFirmware = true;
     bluetooth.enable = true;
     graphics = {
       enable = true;
@@ -87,8 +91,6 @@
       "dialout"
     ];
   };
-
-  hardware.enableRedistributableFirmware = true;
 
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "26.05";
